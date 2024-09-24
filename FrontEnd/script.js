@@ -44,13 +44,13 @@ document.addEventListener("DOMContentLoaded", function () {
                 if (!uniqueCategoryFilter.has(category.name)) {
                     uniqueCategoryFilter.add(category.name);
 
-                const categoryFilter = document.createElement("button");
-                categoryFilter.textContent = category.name;
-                categoryFilter.type = "submit";
-                categoryFilter.className = "filters";
-                categoryFilter.id = `filter${category.id}`;
-                const filtersButtons = document.querySelector(".category-filters");
-                filtersButtons.appendChild(categoryFilter);
+                const categoryFilterButton = document.createElement("button");
+                categoryFilterButton.textContent = category.name;
+                categoryFilterButton.type = "submit";
+                categoryFilterButton.className = "filters";
+                categoryFilterButton.id = `filter${category.id}`;
+                const categoryFilters = document.querySelector(".category-filters");
+                categoryFilters.appendChild(categoryFilterButton);
                 }
             }
         }) 
