@@ -7,9 +7,9 @@ document.addEventListener("DOMContentLoaded", function () {
             method: 'GET',
         })    
         .then(response => response.json())
-        .then(data => {     
-            for (let i = 0; i < data.length; i++) {
-                const project = data[i];
+        .then(works => {     
+            for (let i = 0; i < works.length; i++) {
+                const project = works[i];
             
                 // Crée l'affichage des projets
                 const projectFigure = document.createElement("figure");
@@ -30,4 +30,5 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     displayProjects();
+
 })
