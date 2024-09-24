@@ -3,9 +3,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // Fonction pour afficher les projets sur la page d'accueil
     function displayProjects() {
         const gallery = document.querySelector(".gallery");
-        fetch('http://localhost:5678/api/works', {
-            method: 'GET',
-        })    
+        fetch('http://localhost:5678/api/works')    
         .then(response => response.json())
         .then(works => {     
             for (let i = 0; i < works.length; i++) {
