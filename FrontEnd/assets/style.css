@@ -304,12 +304,8 @@ footer nav li {
 
 /* Style en mode édition */
 
-#portfolio .remove-filters-button {
-	display: none;
-}
-
 .edit-mode-banner {
-    position: absolute;
+	position: absolute;
     background-color: black;
     color: white;
     text-align: center;
@@ -320,7 +316,7 @@ footer nav li {
 }
 
 .edit-mode-banner i {
-    margin-right: 10px;
+	margin-right: 10px;
     height: 15.6px;
 }
 
@@ -344,7 +340,7 @@ footer nav li {
 }
 
 #portfolio .edit-mode-project i {
-    margin-right: 5px;
+	margin-right: 5px;
     height: 15.6px;
 }
 
@@ -354,3 +350,10 @@ footer nav li {
 	font-weight: 400;
 }
 
+#portfolio .remove-filters-button {
+	display: none;
+}
+
+#portfolio .edit-mode-gallery {
+	margin-top: 80px;
+}
