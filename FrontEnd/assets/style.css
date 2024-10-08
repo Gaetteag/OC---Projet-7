@@ -302,4 +302,55 @@ footer nav li {
 	margin-right: 0;
 }
 
+/* Style en mode édition */
+
+#portfolio .remove-filters-button {
+	display: none;
+}
+
+.edit-mode-banner {
+    position: absolute;
+    background-color: black;
+    color: white;
+    text-align: center;
+	padding: 20px;
+    top: 0;
+    left: 0;
+    width: 100%;
+}
+
+.edit-mode-banner i {
+    margin-right: 10px;
+    height: 15.6px;
+}
+
+.edit-mode-banner span {
+	font-family: 'Work Sans';
+    font-size: 16px;
+	font-weight: 400;
+}
+
+#portfolio .edit-mode-project a {
+	position: absolute;
+	text-decoration: none;
+    color: black;
+    left: 700px;
+    top: 0;
+	padding-top: 10px;
+    display: flex;	
+	border: none;
+	background-color: white;
+	cursor: pointer;
+}
+
+#portfolio .edit-mode-project i {
+    margin-right: 5px;
+    height: 15.6px;
+}
+
+#portfolio .edit-mode-project span {
+	font-family: 'Work Sans';
+	font-size: 14px;
+	font-weight: 400;
+}
 
