@@ -32,8 +32,7 @@ document.addEventListener("DOMContentLoaded", function () {
         
         const modifyLink = document.createElement('a');
         modifyLink.href = '#modal-section';
-        modifyLink.id = 'modal-modify-button';
-        
+        modifyLink.id = 'modal-modify-button';        
         modifyLink.appendChild(iconModify);
         
         const textModify = document.createElement('span');
@@ -57,7 +56,7 @@ document.addEventListener("DOMContentLoaded", function () {
     function transformLoginToLogout() {
         const authLink = document.getElementById('auth-link');
         if (token) {
-            authLink.innerHTML = '<a href="#">logout</a>';
+            authLink.innerHTML = '<a href="index.html">logout</a>';
 
             authLink.addEventListener("click", function (event) {
                 localStorage.removeItem('token');
