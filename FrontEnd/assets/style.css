@@ -417,6 +417,7 @@ footer nav li {
 	height: 36px;
 	border-radius: 60px;
 	border: none;
+	cursor: pointer;
 }
 
 .modal-gallery {
