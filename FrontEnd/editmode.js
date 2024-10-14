@@ -101,6 +101,8 @@ document.addEventListener("DOMContentLoaded", function () {
         modalSection.appendChild(modalWindow);
     
         document.body.appendChild(modalSection);
+
+        closeModal();
     }
 
     // Fonction pour ouvrir la modale
@@ -126,9 +128,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
         fetch('http://localhost:5678/api/works')
         .then(response => response.json())
-        .then(data => {
-            for (let i = 0; i < data.length; i++) {
-                const work = data[i];
+        .then(works => {
+            
+            works.forEach(work => {
 
                 const imageProjectModal = document.createElement('div');
                 imageProjectModal.classList.add('modal-project-container');
@@ -140,20 +142,35 @@ document.addEventListener("DOMContentLoaded", function () {
 
                 const garbageModalIcon = document.createElement('i');
                 garbageModalIcon.classList.add('fa-solid', 'fa-trash-can', 'modal-delete-icon'); 
-
-                garbageModalIcon.addEventListener('click', () => {
-                    deleteProject(work.id, imageProjectModal);
-                });
                 
                 imageProjectModal.appendChild(imageModalProject);
                 imageProjectModal.appendChild(garbageModalIcon);
 
                 modalGallery.appendChild(imageProjectModal);
-            }
+            })
         })
         .catch(error => {
             console.error('Erreur lors de la récupération des images :', error);
         });
-}
+    }
+
+    // Fonction pour fermer la modale et retirer le conteneur du DOM
+    function closeModal() {
+        const closeButton = document.getElementById('modal-close-button');
+
+        closeButton.addEventListener("click", () => {
+            const modalSection = document.querySelector('.modal-section');
+            if (modalSection) {
+                modalSection.remove();
+            }
+        });
+
+        document.body.addEventListener("click", (event) => {
+            const modalSection = document.querySelector('.modal-section');
+            if (event.target === modalSection) {
+             modalSection.remove();
+            }
+        });
+    }
 
 });
