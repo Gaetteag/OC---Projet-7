@@ -398,7 +398,8 @@ footer nav li {
 	font-size: 24px;
 	justify-content: end;
 	margin: 0;
-	padding: 20px 20px 0 0;
+	margin: 20px 20px 0 0;
+	cursor: pointer;
 }
 
 .modal-button-add-photo {
@@ -416,6 +417,7 @@ footer nav li {
 	height: 36px;
 	border-radius: 60px;
 	border: none;
+	cursor: pointer;
 }
 
 .modal-gallery {
