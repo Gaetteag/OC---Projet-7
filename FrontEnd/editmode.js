@@ -30,16 +30,16 @@ document.addEventListener("DOMContentLoaded", function () {
         const iconModify = document.createElement('i');
         iconModify.classList.add('fa-regular', 'fa-pen-to-square');
         
-        const modifyLink = document.createElement('a');
-        modifyLink.href = '#modal-section';
-        modifyLink.id = 'modal-modify-button';        
-        modifyLink.appendChild(iconModify);
+        const modifyButton = document.createElement('a');
+        modifyButton.href = '#modal-section';
+        modifyButton.id = 'modal-modify-button';        
+        modifyButton.appendChild(iconModify);
         
         const textModify = document.createElement('span');
         textModify.textContent = 'modifier';
-        modifyLink.appendChild(textModify);
+        modifyButton.appendChild(textModify);
         
-        editModeButton.appendChild(modifyLink);
+        editModeButton.appendChild(modifyButton);
         
         const portfolioSection = document.querySelector('#portfolio');
         portfolioSection.insertBefore(editModeButton, portfolioSection.children[1]);
@@ -47,6 +47,9 @@ document.addEventListener("DOMContentLoaded", function () {
         // Retirer les boutons de filtre de l'affichage
         const filtersButton = document.getElementById('category-filters');
         filtersButton.classList.add('remove-filters-button')
+
+        // Ajouter un espace supplémentaire en haut de page
+        header.classList.add('spaceBannerEditMode')
 
         // Ajouter un espace supplémentaire entre "Mes Projets" et l'affichage des projets
         const editModeGallery = document.getElementById('gallery');
