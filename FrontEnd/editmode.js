@@ -142,6 +142,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
                 const garbageModalIcon = document.createElement('i');
                 garbageModalIcon.classList.add('fa-solid', 'fa-trash-can', 'modal-delete-icon'); 
+
+                garbageModalIcon.addEventListener('click', () => {
+                    deleteProject(work.id, imageProjectModal);
+                });
                 
                 imageProjectModal.appendChild(imageModalProject);
                 imageProjectModal.appendChild(garbageModalIcon);
@@ -154,6 +158,24 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
+    // Fonction pour supprimer une image d'un projet dans la modale
+    function deleteProject(id, imageModalProject) {
+        fetch(`http://localhost:5678/api/works/${id}`, {
+            method: 'DELETE',
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json',
+            },
+        })
+        .then(() => {
+                imageModalProject.remove();
+            
+        })
+        .catch(error => {
+            console.error("Erreur lors de la suppression de l'image :", error);
+        });
+    }
+    
     // Fonction pour fermer la modale et retirer le conteneur du DOM
     function closeModal() {
         const closeButton = document.getElementById('modal-close-button');
