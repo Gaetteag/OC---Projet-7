@@ -68,4 +68,53 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
+    // Fonction pour créer la modale
+    function createModal() {
+        const modalSection = document.createElement('aside');
+        modalSection.id = 'modal-section';
+        modalSection.classList.add('modal-section');
+    
+        const modalWindow = document.createElement('div');
+        modalWindow.classList.add('modal-window');
+    
+        const closeButton = document.createElement('i');
+        closeButton.classList.add('fa-solid', 'fa-xmark');
+        closeButton.id = 'modal-close-button';
+    
+        const modalTitle = document.createElement('h3');
+        modalTitle.id = 'modal-title';
+        modalTitle.textContent = 'Galerie photo';
+    
+        const modalGallery = document.createElement('div');
+        modalGallery.classList.add('modal-gallery');
+    
+        const addPhotoButton = document.createElement('button');
+        addPhotoButton.classList.add('modal-button-add-photo');
+        addPhotoButton.textContent = 'Ajouter une photo';
+    
+        modalWindow.appendChild(closeButton);
+        modalWindow.appendChild(modalTitle);
+        modalWindow.appendChild(modalGallery);
+        modalWindow.appendChild(addPhotoButton);
+        modalSection.appendChild(modalWindow);
+    
+        document.body.appendChild(modalSection);
+    }
+
+    // Fonction pour ouvrir la modale
+    function openModal() {
+    const modalTrigger = document.getElementById('modal-modify-button');
+    modalTrigger.addEventListener("click", () => {
+        // Vérifier si la modale est déjà présente dans le DOM
+        if (!document.querySelector('.modal-section')) {
+            createModal(); // Créer la modale si elle n'existe pas
+        }
+        const modalSection = document.querySelector('.modal-section');
+        modalSection.style.display = 'flex';
+        });
+    }
+
+    // Initialiser l'ouverture de la modale
+    openModal();
+
 });
