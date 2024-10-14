@@ -357,3 +357,96 @@ footer nav li {
 #portfolio .edit-mode-gallery {
 	margin-top: 80px;
 }
+
+.spaceBannerEditMode {
+	margin-top: 100px;
+}
+
+.modal-section {
+	display: none;
+	position: fixed;
+	align-items: center;
+	justify-content: center;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: rgba(0, 0, 0, 0.8);
+	z-index: 1000;
+}
+
+.modal-window {
+	position: relative;
+	background: white;
+	padding: 20px;
+	width: 630px;
+	height: 688px;
+	border-radius: 10px;
+}
+
+#modal-title {
+	display: flex;
+	font-family: 'Work Sans';
+	font-size: 26px;
+	font-weight: 400;
+	margin-top: 10px;
+	justify-content: center;
+}
+
+#modal-close-button {
+	display: flex;
+	font-size: 24px;
+	justify-content: end;
+	margin: 0;
+	padding: 20px 20px 0 0;
+}
+
+.modal-button-add-photo {
+	position: absolute;
+	bottom: 5px;
+	left: 50%;
+	transform: translateX(-50%);
+	font-family: 'Syne';
+	font-size: 14px;
+	font-weight: 700;
+	color: white;
+	background-color: #1D6154;
+	margin : 3em auto ;
+	width: 237px;
+	height: 36px;
+	border-radius: 60px;
+	border: none;
+}
+
+.modal-gallery {
+	display: flex;
+	height: 400px;
+	flex-wrap: wrap;
+	justify-content: flex-start;
+	gap: 10px;
+	row-gap: 30px;
+	margin: 50px 102.5px 0 102.5px;
+	padding-bottom: 50px;
+	border-bottom: 1px solid #B3B3B3;
+}
+
+.modal-gallery-image {
+	height: 102.57px;
+	width: 76.86px;
+}
+
+.modal-project-container {
+    position: relative;
+}
+
+.modal-delete-icon {
+    position: absolute;
+    top: 6px;
+    right: 5px;
+    font-size: 9px;
+	padding: 4px;
+	border-radius: 2px;
+    color: white;
+	background-color: black; 
+    cursor: pointer;
+}
