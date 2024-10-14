@@ -56,12 +56,14 @@ document.addEventListener("DOMContentLoaded", function () {
         editModeGallery.classList.add('edit-mode-gallery')
     }
 
+    // Fonction pour transformer le texte en "logout" quand l'utlisateur est connecté
     function transformLoginToLogout() {
         const authLink = document.getElementById('auth-link');
         if (token) {
             authLink.innerHTML = '<a href="index.html">logout</a>';
 
             authLink.addEventListener("click", function (event) {
+                event.preventDefault();
                 localStorage.removeItem('token');
                 window.location.reload();
             });
@@ -103,18 +105,55 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Fonction pour ouvrir la modale
     function openModal() {
-    const modalTrigger = document.getElementById('modal-modify-button');
-    modalTrigger.addEventListener("click", () => {
+    const modalModifyButton = document.getElementById('modal-modify-button');
+    modalModifyButton.addEventListener("click", () => {
         // Vérifier si la modale est déjà présente dans le DOM
         if (!document.querySelector('.modal-section')) {
-            createModal(); // Créer la modale si elle n'existe pas
+            createModal();
         }
         const modalSection = document.querySelector('.modal-section');
         modalSection.style.display = 'flex';
+        loadGalleryProjects();
         });
     }
 
-    // Initialiser l'ouverture de la modale
     openModal();
+
+    // Fonction pour charger les images de l'API dans la modale
+    function loadGalleryProjects() {
+        const modalGallery = document.querySelector('.modal-gallery');
+        modalGallery.innerHTML = '';
+
+        fetch('http://localhost:5678/api/works')
+        .then(response => response.json())
+        .then(data => {
+            for (let i = 0; i < data.length; i++) {
+                const work = data[i];
+
+                const imageProjectModal = document.createElement('div');
+                imageProjectModal.classList.add('modal-project-container');
+                imageProjectModal.setAttribute('data-id', work.id);
+
+                const imageModalProject = document.createElement('img');
+                imageModalProject.src = work.imageUrl;
+                imageModalProject.classList.add('modal-gallery-image'); 
+
+                const garbageModalIcon = document.createElement('i');
+                garbageModalIcon.classList.add('fa-solid', 'fa-trash-can', 'modal-delete-icon'); 
+
+                garbageModalIcon.addEventListener('click', () => {
+                    deleteProject(work.id, imageProjectModal);
+                });
+                
+                imageProjectModal.appendChild(imageModalProject);
+                imageProjectModal.appendChild(garbageModalIcon);
+
+                modalGallery.appendChild(imageProjectModal);
+            }
+        })
+        .catch(error => {
+            console.error('Erreur lors de la récupération des images :', error);
+        });
+}
 
 });
