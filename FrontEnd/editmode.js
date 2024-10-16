@@ -98,7 +98,7 @@ document.addEventListener("DOMContentLoaded", function () {
     
             closeModal();
         }
-
+        
         // Fonction pour ouvrir la modale
         function openModal() {
             const modalModifyButton = document.getElementById('modal-modify-button');
@@ -170,18 +170,15 @@ document.addEventListener("DOMContentLoaded", function () {
         // Fonction pour fermer la modale et retirer le conteneur du DOM
         function closeModal() {
             const closeButton = document.getElementById('modal-close-button');
+            const modalSection = document.querySelector('.modal-section');
     
             closeButton.addEventListener("click", () => {
-                const modalSection = document.querySelector('.modal-section');
-                if (modalSection) {
-                    modalSection.remove();
-                }
+                modalSection.remove();
             });
     
             main.addEventListener("click", (event) => {
-                const modalSection = document.querySelector('.modal-section');
                 if (event.target === modalSection) {
-                 modalSection.remove();
+                    modalSection.remove();
                 }
             });
         }
