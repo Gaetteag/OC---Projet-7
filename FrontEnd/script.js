@@ -188,7 +188,7 @@ document.addEventListener("DOMContentLoaded", function () {
         
             main.appendChild(modalSection);
     
-            //closeModal();
+            closeModal();
         }
         
         // Fonction pour ouvrir la modale
