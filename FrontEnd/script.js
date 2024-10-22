@@ -209,12 +209,9 @@ document.addEventListener("DOMContentLoaded", function () {
             const modalGallery = document.querySelector('.modal-gallery');
             modalGallery.innerHTML = '';
     
-            // A changer avec appel au fetch dejà plus haut
-            fetch(worksUrl)
-            .then(response => response.json())
-            .then(works => {
+            if (allWorks.length > 0) {
                 
-                works.forEach(work => {
+                allWorks.forEach(work => {
     
                     const imageProjectModal = document.createElement('div');
                     imageProjectModal.classList.add('modal-project-container');
@@ -236,8 +233,7 @@ document.addEventListener("DOMContentLoaded", function () {
     
                     modalGallery.appendChild(imageProjectModal);
                 })
-            })
-            .catch(error => console.error('Erreur lors de la récupération des images :', error));
+            }
         }
     
         // Fonction pour supprimer une image d'un projet dans la modale
@@ -249,11 +245,13 @@ document.addEventListener("DOMContentLoaded", function () {
                     'Content-Type': 'application/json',
                 },
             })
-            .then(() => {
+                .then(() => {
                     imageModalProject.remove();
-                
-            })
-            .catch(error => console.error("Erreur lors de la suppression de l'image :", error));
+
+                    const projectOnHomePage = document.querySelector(`figure[id="${id}"]`);
+                    projectOnHomePage.remove();
+                })   
+                .catch(error => console.error("Erreur lors de la suppression de l'image :", error));
         }
         
         // Fonction pour fermer la modale et retirer le conteneur du DOM
