@@ -1,102 +1,102 @@
-document.addEventListener("DOMContentLoaded", function () {
-
-    // Variables
-    const worksUrl = 'http://localhost:5678/api/works';
-    const categoriesUrl = 'http://localhost:5678/api/categories';
-    let allWorks = [];
+// Variables
+const worksUrl = 'http://localhost:5678/api/works';
+const categoriesUrl = 'http://localhost:5678/api/categories';
+let allWorks = [];
     
-    // Fonction pour récupérer les projets sur l'API
-    function getProjects() {
-        fetch(worksUrl)
-            .then(response => response.json())
-            .then(works => {     
-                allWorks = works;
-                displayProjects(allWorks);
-            })
-            .catch(error => console.error("Erreur lors de la récupération des projets", error));           
-    }
+// Fonction pour récupérer les projets sur l'API
+function getProjects() {
+    fetch(worksUrl)
+        .then(response => response.json())
+        .then(works => {     
+            allWorks = works;
+            displayProjects(allWorks);
+        })
+        .catch(error => console.error("Erreur lors de la récupération des projets", error));           
+}
     
-    // Fonction pour afficher les projets sur la page d'accueil
-    function displayProjects(allWorks) {
-        const gallery = document.querySelector(".gallery");
-        gallery.innerHTML = "";
+// Fonction pour afficher les projets sur la page d'accueil
+function displayProjects(allWorks) {
+    const gallery = document.querySelector(".gallery");
+    gallery.innerHTML = "";
         
-        allWorks.forEach(work => {
-            const workFigure = document.createElement("figure");
-            workFigure.id = work.id;
+    allWorks.forEach(work => {
+        const workFigure = document.createElement("figure");
+        workFigure.id = work.id;
             
-            const workImage = document.createElement("img");
-            workImage.src = work.imageUrl;
-            workImage.alt = work.title;
-            workFigure.appendChild(workImage);
+        const workImage = document.createElement("img");
+        workImage.src = work.imageUrl;
+        workImage.alt = work.title;
+        workFigure.appendChild(workImage);
             
-            const workTitle = document.createElement("figcaption");
-            workTitle.textContent = work.title;
-            workFigure.appendChild(workTitle);
+        const workTitle = document.createElement("figcaption");
+        workTitle.textContent = work.title;
+        workFigure.appendChild(workTitle);
             
-            gallery.appendChild(workFigure);
-        });
-    }
+        gallery.appendChild(workFigure);
+    });
+}
     
-    getProjects();
+getProjects();
 
-    // Fonction pour récupérer les catégories sur l'API
-    function getCategories() {
-        fetch(categoriesUrl)
-            .then(response => response.json())
-            .then(categories => {     
-                createFilters(categories);
-            })
-            .catch(error => console.error("Erreur lors de la récupération des catégories", error));
-    }
+// Fonction pour récupérer les catégories sur l'API
+function getCategories() {
+    fetch(categoriesUrl)
+        .then(response => response.json())
+        .then(categories => {     
+            createFilters(categories);
+        })
+        .catch(error => console.error("Erreur lors de la récupération des catégories", error));
+}
 
-    // Fonction pour afficher les filtres de catégorie sur la page d'accueil (hors "Tous")
-    function createFilters(categories) {
-        const uniqueCategoryFilter = new Set();   
-        categories.forEach(category => {
-            if (!uniqueCategoryFilter.has(category.name)) {
-                uniqueCategoryFilter.add(category.name);
+// Fonction pour afficher les filtres de catégorie sur la page d'accueil (hors "Tous")
+function createFilters(categories) {
+    const uniqueCategoryFilter = new Set();   
+    categories.forEach(category => {
+        if (!uniqueCategoryFilter.has(category.name)) {
+            uniqueCategoryFilter.add(category.name);
                     
-                const categoryFilterButton = document.createElement('button');
-                categoryFilterButton.textContent = category.name;
-                categoryFilterButton.type = "submit";
-                categoryFilterButton.className = "filters";
-                categoryFilterButton.id = category.id;
+            const categoryFilterButton = document.createElement('button');
+            categoryFilterButton.textContent = category.name;
+            categoryFilterButton.type = "submit";
+            categoryFilterButton.className = "filters";
+            categoryFilterButton.id = category.id;
                     
-                const categoryFilters = document.querySelector(".category-filters");
-                categoryFilters.appendChild(categoryFilterButton);   
-            }
-        });
+            const categoryFilters = document.querySelector(".category-filters");
+            categoryFilters.appendChild(categoryFilterButton);   
+        }
+    });
 
-        // Ajouter / Supprimer sur les filtres la classe "filter_selected"
-        const allFilters = document.querySelectorAll(".category-filters .filters");
-        allFilters.forEach(filter => {
+    // Ajouter / Supprimer sur les filtres la classe "filter_selected"
+    const allFilters = document.querySelectorAll(".category-filters .filters");
+    allFilters.forEach(filter => {
             filter.addEventListener('click', () => {
-                allFilters.forEach(filterSelected => filterSelected.classList.remove("filter_selected"));
-                filter.classList.add("filter_selected");
+            allFilters.forEach(filterSelected => filterSelected.classList.remove("filter_selected"));
+            filter.classList.add("filter_selected");
 
-                // Filtrer les résultats selon le filtre sélectionné
-                const categoryId = filter.id;
-                if (categoryId === '0') {
-                    displayProjects(allWorks);
-                } else {
-                    const filteredWorks = allWorks.filter(work => work.categoryId == categoryId)
-                    displayProjects(filteredWorks);
-                }
-            })
-        });
-    }
+            // Filtrer les résultats selon le filtre sélectionné
+            const categoryId = filter.id;
+            if (categoryId === '0') {
+                displayProjects(allWorks);
+            } else {
+                const filteredWorks = allWorks.filter(work => work.categoryId == categoryId)
+                displayProjects(filteredWorks);
+            }
+        })
+    });
+}
     
-    getCategories();
+getCategories();
 
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    // Mode édition
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Mode édition
 
-    // Variables
-    const token = localStorage.getItem('token');
-    const header = document.querySelector('header');
-    const main = document.querySelector('main'); 
+// Variables
+const token = localStorage.getItem('token');
+const main = document.querySelector('main'); 
+const header = document.querySelector('header');
+const modalSection = document.getElementById('modal-section')
     
+function editMode() {
     if (token) {
         
         // Créer la bannière du mode édition
@@ -158,7 +158,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         // Fonction pour créer la modale
         function createModal() {
-            const modalSection = document.createElement('aside');
+            const modalSection = document.createElement('aside'); //à créer en HTML ou fonction séparée
             modalSection.id = 'modal-section';
             modalSection.classList.add('modal-section');
         
@@ -178,6 +178,7 @@ document.addEventListener("DOMContentLoaded", function () {
         
             const addPhotoButton = document.createElement('button');
             addPhotoButton.classList.add('modal-button-add-photo');
+            addPhotoButton.id = ('modal-button-add-photo');
             addPhotoButton.textContent = 'Ajouter une photo';
         
             modalWindow.appendChild(closeButton);
@@ -267,5 +268,6 @@ document.addEventListener("DOMContentLoaded", function () {
             });
         }
     }
+}
 
-});
+editMode();
