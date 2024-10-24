@@ -208,32 +208,29 @@ document.addEventListener("DOMContentLoaded", function () {
         function loadGalleryProjects() {
             const modalGallery = document.querySelector('.modal-gallery');
             modalGallery.innerHTML = '';
-    
-            if (allWorks.length > 0) {
                 
-                allWorks.forEach(work => {
+            allWorks.forEach(work => {
     
-                    const imageProjectModal = document.createElement('div');
-                    imageProjectModal.classList.add('modal-project-container');
-                    imageProjectModal.value = work.id;
+                const imageProjectModal = document.createElement('div');
+                imageProjectModal.classList.add('modal-project-container');
+                imageProjectModal.value = work.id;
     
-                    const imageModalProject = document.createElement('img');
-                    imageModalProject.src = work.imageUrl;
-                    imageModalProject.classList.add('modal-gallery-image'); 
+                const imageModalProject = document.createElement('img');
+                imageModalProject.src = work.imageUrl;
+                imageModalProject.classList.add('modal-gallery-image'); 
     
-                    const garbageModalIcon = document.createElement('i');
-                    garbageModalIcon.classList.add('fa-solid', 'fa-trash-can', 'modal-delete-icon'); 
+                const garbageModalIcon = document.createElement('i');
+                garbageModalIcon.classList.add('fa-solid', 'fa-trash-can', 'modal-delete-icon'); 
     
-                    garbageModalIcon.addEventListener('click', () => {
-                        deleteModalProject(work.id, imageProjectModal);
-                    });
+                garbageModalIcon.addEventListener('click', () => {
+                    deleteModalProject(work.id, imageProjectModal);
+                });
                     
-                    imageProjectModal.appendChild(imageModalProject);
-                    imageProjectModal.appendChild(garbageModalIcon);
+                imageProjectModal.appendChild(imageModalProject);
+                imageProjectModal.appendChild(garbageModalIcon);
     
-                    modalGallery.appendChild(imageProjectModal);
-                })
-            }
+                modalGallery.appendChild(imageProjectModal);
+            })
         }
     
         // Fonction pour supprimer une image d'un projet dans la modale
@@ -253,7 +250,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 })   
                 .catch(error => console.error("Erreur lors de la suppression de l'image :", error));
         }
-        
+
         // Fonction pour fermer la modale et retirer le conteneur du DOM
         function closeModal() {
             const closeButton = document.getElementById('modal-close-button');
