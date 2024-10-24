@@ -94,7 +94,6 @@ getCategories();
 const token = localStorage.getItem('token');
 const main = document.querySelector('main'); 
 const header = document.querySelector('header');
-const modalSection = document.getElementById('modal-section')
     
 function editMode() {
     if (token) {
@@ -159,8 +158,8 @@ function editMode() {
         // Fonction pour créer la modale
         function createModal() {
             const modalSection = document.createElement('aside'); //à créer en HTML ou fonction séparée
-            modalSection.id = 'modal-section';
             modalSection.classList.add('modal-section');
+            modalSection.id = 'modal-section';
         
             const modalWindow = document.createElement('div');
             modalWindow.classList.add('modal-window');
