@@ -94,6 +94,7 @@ getCategories();
 const token = localStorage.getItem('token');
 const main = document.querySelector('main'); 
 const header = document.querySelector('header');
+const modalSection = document.getElementById('modal-section');
     
 function editMode() {
     if (token) {
@@ -155,14 +156,20 @@ function editMode() {
         const editModeGallery = document.getElementById('gallery');
         editModeGallery.classList.add('edit-mode-gallery')
 
+        // Fonction pour créer la balise aside qui contient la modale
+        function asideElement() {
+            const asideElement = document.createElement('aside');
+            asideElement.classList.add('modal-section');
+            asideElement.id = 'modal-section';
+
+            main.appendChild(asideElement);
+        }
+
         // Fonction pour créer la modale
-        function createModal() {
-            const modalSection = document.createElement('aside'); //à créer en HTML ou fonction séparée
-            modalSection.classList.add('modal-section');
-            modalSection.id = 'modal-section';
-        
+        function galleryModal() {
             const modalWindow = document.createElement('div');
             modalWindow.classList.add('modal-window');
+            modalWindow.id = 'modal-window';
         
             const closeButton = document.createElement('i');
             closeButton.classList.add('fa-solid', 'fa-xmark');
@@ -184,19 +191,25 @@ function editMode() {
             modalWindow.appendChild(modalTitle);
             modalWindow.appendChild(modalGallery);
             modalWindow.appendChild(addPhotoButton);
+
+            const modalSection = document.getElementById('modal-section');
             modalSection.appendChild(modalWindow);
         
             main.appendChild(modalSection);
-    
+
             closeModal();
         }
         
         // Fonction pour ouvrir la modale
         function openModal() {
-            const modalModifyButton = document.getElementById('modal-modify-button');
+            const modalModifyButton = document.getElementById('modal-modify-button');            
             modalModifyButton.addEventListener("click", () => {
-                createModal();
-                const modalSection = document.querySelector('.modal-section');
+                asideElement();
+                //const modalWindow = document.getElementById('modal-window');
+                //if (!modalWindow) {
+                    galleryModal();
+                //}                
+                const modalSection = document.getElementById('modal-section');
                 modalSection.style.display = 'flex';
                 loadGalleryProjects();
             });
@@ -211,9 +224,9 @@ function editMode() {
                 
             allWorks.forEach(work => {
     
-                const imageProjectModal = document.createElement('div');
-                imageProjectModal.classList.add('modal-project-container');
-                imageProjectModal.value = work.id;
+                const projectModal = document.createElement('figure');
+                projectModal.classList.add('modal-project-container');
+                projectModal.value = work.id;
     
                 const imageModalProject = document.createElement('img');
                 imageModalProject.src = work.imageUrl;
@@ -223,13 +236,13 @@ function editMode() {
                 garbageModalIcon.classList.add('fa-solid', 'fa-trash-can', 'modal-delete-icon'); 
     
                 garbageModalIcon.addEventListener('click', () => {
-                    deleteModalProject(work.id, imageProjectModal);
+                    deleteModalProject(work.id, projectModal);
                 });
                     
-                imageProjectModal.appendChild(imageModalProject);
-                imageProjectModal.appendChild(garbageModalIcon);
+                projectModal.appendChild(imageModalProject);
+                projectModal.appendChild(garbageModalIcon);
     
-                modalGallery.appendChild(imageProjectModal);
+                modalGallery.appendChild(projectModal);
             })
         }
     
@@ -244,6 +257,7 @@ function editMode() {
             })
                 .then(() => {
                     imageModalProject.remove();
+                    allWorks = allWorks.filter(work => work.id !== id);
 
                     const projectOnHomePage = document.querySelector(`figure[id="${id}"]`);
                     projectOnHomePage.remove();
@@ -254,8 +268,8 @@ function editMode() {
         // Fonction pour fermer la modale et retirer le conteneur du DOM
         function closeModal() {
             const closeButton = document.getElementById('modal-close-button');
-            const modalSection = document.querySelector('.modal-section');
-    
+            const modalSection = document.getElementById('modal-section');
+            
             closeButton.addEventListener("click", () => {
                 modalSection.remove();
             });
