@@ -205,10 +205,7 @@ function editMode() {
             const modalModifyButton = document.getElementById('modal-modify-button');            
             modalModifyButton.addEventListener("click", () => {
                 asideElement();
-                //const modalWindow = document.getElementById('modal-window');
-                //if (!modalWindow) {
-                    galleryModal();
-                //}                
+                galleryModal();            
                 const modalSection = document.getElementById('modal-section');
                 modalSection.style.display = 'flex';
                 loadGalleryProjects();
