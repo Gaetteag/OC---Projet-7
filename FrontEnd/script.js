@@ -363,11 +363,11 @@ function editMode() {
         }
 
         // Fonction pour fermer la modale et retirer le conteneur du DOM
-        function closeModal(closeButtonId) {
+        function closeModal(closeModalButtonId) {
             const modalSection = document.getElementById('modal-section');
-            const closeButton = document.getElementById(closeButtonId);
+            const closeModalButton = document.getElementById(closeModalButtonId);
             
-                closeButton.addEventListener("click", () => {
+                closeModalButton.addEventListener("click", () => {
                     modalSection.remove();
                 });
     
