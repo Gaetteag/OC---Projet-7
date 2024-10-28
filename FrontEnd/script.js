@@ -367,11 +367,9 @@ function editMode() {
             const modalSection = document.getElementById('modal-section');
             const closeButton = document.getElementById(closeButtonId);
             
-            if (closeButton) {
                 closeButton.addEventListener("click", () => {
                     modalSection.remove();
                 });
-            }
     
             main.addEventListener("click", (event) => {
                 if (event.target === modalSection) {
