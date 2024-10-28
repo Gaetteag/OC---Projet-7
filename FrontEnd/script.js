@@ -176,7 +176,7 @@ function editMode() {
             closeButton.id = 'modal-close-button';
         
             const modalTitle = document.createElement('h3');
-            modalTitle.id = 'modal-title';
+            modalTitle.classList.add('modal-title');
             modalTitle.textContent = 'Galerie photo';
         
             const modalGallery = document.createElement('div');
@@ -196,6 +196,90 @@ function editMode() {
             modalSection.appendChild(modalWindow);
         
             main.appendChild(modalSection);
+
+            addPhotoButton.addEventListener('click', () => {
+                const modalWindow = document.getElementById('modal-window');
+                modalWindow.innerHTML = '';
+
+                const modalTopIcons = document.createElement('div');
+                modalTopIcons.classList.add('modal-top-icons')
+
+                const backButton = document.createElement('i');
+                backButton.classList.add('fa-solid', 'fa-arrow-left');
+                backButton.id = 'modal-back-button';
+
+                const secondCloseButton = document.createElement('i');
+                secondCloseButton.classList.add('fa-solid', 'fa-xmark');
+                secondCloseButton.id = 'modal-close-button-2';
+
+                const secondModalTitle = document.createElement('h3');
+                secondModalTitle.classList.add('modal-title');
+                secondModalTitle.textContent = 'Ajout photo';
+
+                const uploadSectionWindow = document.createElement('div');
+                uploadSectionWindow.classList.add('modal-upload-section-window');
+
+                const uploadSection = document.createElement('div');
+                uploadSection.classList.add('modal-upload-section');
+
+                const imageUploadSection = document.createElement('i');
+                imageUploadSection.classList.add('fa-regular', 'fa-image');
+                imageUploadSection.id = 'modal-upload-section-image';
+
+                const addPhotoUploadSection = document.createElement('button');
+                addPhotoUploadSection.classList.add('modal-upload-section-button-add-photo');
+                addPhotoUploadSection.textContent = '+ Ajouter photo';
+
+                const textUploadSection = document.createElement('p');
+                textUploadSection.classList.add('modal-upload-section-text');
+                textUploadSection.textContent = 'jpg, png : 4mo max';
+                
+                const formUploadSection = document.createElement('form');
+                formUploadSection.id = 'modal-upload-section-form';
+
+                const projectTitle = document.createElement('label')
+                projectTitle.textContent = 'Titre';
+                projectTitle.htmlFor = 'projectTitleArea'
+                const projectTitleArea = document.createElement('input');
+                projectTitleArea.type = 'text';
+                projectTitleArea.name = 'title-new-project';
+                projectTitleArea.id = 'projectTitleArea';
+
+                const projectCategory = document.createElement('label')
+                projectCategory.textContent = 'Catégorie';
+                projectCategory.htmlFor = 'projectCategoryArea'
+                const projectCategoryArea = document.createElement('input');
+                projectCategoryArea.type = 'text';
+                projectCategoryArea.type = 'text';
+                projectCategoryArea.name = 'category-new-project';
+                projectCategoryArea.id = 'projectCategoryArea';
+
+                const validateButton = document.createElement('button');
+                validateButton.classList.add('modal-upload-section-button-validate');
+                validateButton.textContent = 'Valider';
+
+                modalWindow.appendChild(modalTopIcons);
+                modalTopIcons.appendChild(backButton);
+                modalTopIcons.appendChild(secondCloseButton);
+                modalWindow.appendChild(secondModalTitle);
+                modalWindow.appendChild(uploadSectionWindow);
+                uploadSectionWindow.appendChild(uploadSection)
+                uploadSection.appendChild(imageUploadSection);
+                uploadSection.appendChild(addPhotoUploadSection);
+                uploadSection.appendChild(textUploadSection);
+                uploadSectionWindow.appendChild(formUploadSection);
+                formUploadSection.appendChild(projectTitle);
+                formUploadSection.appendChild(projectTitleArea);
+                formUploadSection.appendChild(projectCategory);
+                formUploadSection.appendChild(projectCategoryArea);
+                uploadSectionWindow.appendChild(validateButton);
+
+                // Événement pour revenir à la galerie
+                backButton.addEventListener('click', () => {
+                    modalWindow.innerHTML = '';
+                    galleryModal();
+                });
+            })
 
             closeModal();
         }
