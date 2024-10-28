@@ -292,11 +292,6 @@ function editMode() {
             secondCloseButton.classList.add('fa-solid', 'fa-xmark');
             secondCloseButton.id = 'modal-close-button-2';
 
-            secondCloseButton.addEventListener("click", () => {  
-                const modalSection = document.getElementById('modal-section'); 
-                modalSection.remove();
-            });
-
             const secondModalTitle = document.createElement('h3');
             secondModalTitle.classList.add('modal-title');
             secondModalTitle.textContent = 'Ajout photo';
@@ -334,7 +329,6 @@ function editMode() {
             projectCategory.textContent = 'Catégorie';
             projectCategory.htmlFor = 'projectCategoryArea'
             const projectCategoryArea = document.createElement('input');
-            projectCategoryArea.type = 'text';
             projectCategoryArea.type = 'text';
             projectCategoryArea.name = 'category-new-project';
             projectCategoryArea.id = 'projectCategoryArea';
