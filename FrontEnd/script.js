@@ -310,6 +310,16 @@ function editMode() {
             addPhotoUploadSection.classList.add('modal-upload-section-button-add-photo');
             addPhotoUploadSection.textContent = '+ Ajouter photo';
 
+            // Input de type file masqué associé au bouton addPhotoUploadSection pour déclencher l'ouverture de la boîte de dialogue
+            const fileInput = document.createElement('input');
+            fileInput.type = 'file';
+            fileInput.accept = '.jpg, .png';
+            fileInput.style.display = 'none';
+
+            addPhotoUploadSection.addEventListener('click', () => {
+                fileInput.click();
+            });
+
             const textUploadSection = document.createElement('p');
             textUploadSection.classList.add('modal-upload-section-text');
             textUploadSection.textContent = 'jpg, png : 4mo max';
@@ -328,10 +338,24 @@ function editMode() {
             const projectCategory = document.createElement('label')
             projectCategory.textContent = 'Catégorie';
             projectCategory.htmlFor = 'projectCategoryArea'
-            const projectCategoryArea = document.createElement('input');
-            projectCategoryArea.type = 'text';
+            const projectCategoryArea = document.createElement('select');
             projectCategoryArea.name = 'category-new-project';
             projectCategoryArea.id = 'projectCategoryArea';
+
+            // Appel de la fonction pour récupérer les catégories (ne fonctionne pas)
+            /*getCategories()
+                .then(categories => {
+                    console.log("Catégories récupérées :", categories);
+                    categories.forEach(category => {
+                        const option = document.createElement('option');
+                        option.value = category.id;
+                        option.textContent = category.name;
+                        projectCategoryArea.appendChild(option);
+                    });
+                })
+                .catch(error => {
+                    console.error("Erreur lors de la récupération des catégories :", error);
+                });*/
 
             const validateButton = document.createElement('button');
             validateButton.classList.add('modal-upload-section-button-validate');
@@ -345,6 +369,7 @@ function editMode() {
             uploadSectionWindow.appendChild(uploadSection)
             uploadSection.appendChild(imageUploadSection);
             uploadSection.appendChild(addPhotoUploadSection);
+            uploadSection.appendChild(fileInput);
             uploadSection.appendChild(textUploadSection);
             uploadSectionWindow.appendChild(formUploadSection);
             formUploadSection.appendChild(projectTitle);
