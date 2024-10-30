@@ -1,4 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
+    
     const loginForm = document.querySelector("form");
     const connectionButton = document.getElementById('connection-btn');
     let connectionErrorMessage;
@@ -8,13 +9,14 @@ document.addEventListener("DOMContentLoaded", function () {
 
         const email = document.getElementById("email").value;
         const password = document.getElementById("password").value;
+        const data = {email: email, password: password};
 
         fetch("http://localhost:5678/api/users/login", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify({ email: email, password: password })
+            body: JSON.stringify(data)
         })
         .then(response => response.json())
         .then(connection => {
@@ -24,7 +26,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 window.location.href = "index.html";
             } else {
                 // Affiche un message d'erreur si l'authentification échoue
-                connectionError("Nom d'utilisateur ou mot de passe incorrect.");
+                connectionError("Erreur dans l’identifiant ou le mot de passe");
             }
         })
     });
