@@ -509,6 +509,18 @@ footer nav li {
 	cursor: pointer;
 }
 
+.modal-upload-section .img-file-selected {
+	max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+}
+
+.modal-upload-section .error-message-file-selected {
+	position: fixed;
+	top: 620px;
+	color: red;
+}
+
 .modal-upload-section p {
 	font-family: 'Work Sans';
 	font-size: 10px;
