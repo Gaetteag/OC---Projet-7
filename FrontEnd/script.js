@@ -13,29 +13,29 @@ function getProjects() {
         })
         .catch(error => console.error("Erreur lors de la récupération des projets", error));           
 }
-    
+
 // Fonction pour afficher les projets sur la page d'accueil
 function displayProjects(allWorks) {
     const gallery = document.querySelector(".gallery");
     gallery.innerHTML = "";
-        
+    
     allWorks.forEach(work => {
         const workFigure = document.createElement("figure");
         workFigure.id = work.id;
-            
+        
         const workImage = document.createElement("img");
         workImage.src = work.imageUrl;
         workImage.alt = work.title;
         workFigure.appendChild(workImage);
-            
+        
         const workTitle = document.createElement("figcaption");
         workTitle.textContent = work.title;
         workFigure.appendChild(workTitle);
-            
+        
         gallery.appendChild(workFigure);
     });
 }
-    
+
 getProjects();
 
 // Fonction pour récupérer les catégories sur l'API
@@ -157,17 +157,17 @@ function editMode() {
         editModeGallery.classList.add('edit-mode-gallery')
 
         // Fonction pour créer la balise aside qui contient la modale
-        function asideElement() {
-            const asideElement = document.createElement('aside');
-            asideElement.classList.add('modal-section');
-            asideElement.id = 'modal-section';
+        function createModalSection() {
+            const createModalSection = document.createElement('section');
+            createModalSection.classList.add('modal-section');
+            createModalSection.id = 'modal-section';
 
-            const modalWindow = document.createElement('div');
+            const modalWindow = document.createElement('article');
             modalWindow.classList.add('modal-window');
             modalWindow.id = 'modal-window';
 
-            main.appendChild(asideElement);
-            asideElement.appendChild(modalWindow)
+            main.appendChild(createModalSection);
+            createModalSection.appendChild(modalWindow)
         }
 
         // Fonction pour créer la modale initiale
@@ -212,7 +212,7 @@ function editMode() {
         function openModal() {
             const modalModifyButton = document.getElementById('modal-modify-button');            
             modalModifyButton.addEventListener("click", () => {
-                asideElement();
+                createModalSection();
                 galleryModal();            
                 const modalSection = document.getElementById('modal-section');
                 modalSection.style.display = 'flex';
@@ -301,6 +301,7 @@ function editMode() {
 
             const uploadSection = document.createElement('div');
             uploadSection.classList.add('modal-upload-section');
+            uploadSection.id = 'modal-upload-section';
 
             const imageUploadSection = document.createElement('i');
             imageUploadSection.classList.add('fa-regular', 'fa-image');
@@ -313,11 +314,33 @@ function editMode() {
             // Input de type file masqué associé au bouton addPhotoUploadSection pour déclencher l'ouverture de la boîte de dialogue
             const fileInput = document.createElement('input');
             fileInput.type = 'file';
-            fileInput.accept = '.jpg, .png';
+            fileInput.id = 'fileSelected';
             fileInput.style.display = 'none';
 
             addPhotoUploadSection.addEventListener('click', () => {
                 fileInput.click();
+            });
+            
+            let fileSelected = document.getElementById('fileSelected');
+
+            fileInput.addEventListener('change', (event) => {
+                fileSelected = event.target.files[0];
+                    
+                if ((fileSelected.type === 'image/jpeg' || fileSelected.type === 'image/png') && fileSelected.size <= 4 * 1024 * 1024) {
+                const imgFileSelected = document.createElement('img');
+                imgFileSelected.src = URL.createObjectURL(fileSelected);
+                imgFileSelected.classList.add('img-file-selected')
+
+                const uploadSection = document.getElementById('modal-upload-section');
+                uploadSection.innerHTML = '';
+                uploadSection.appendChild(imgFileSelected);
+                } else {
+                    const errorMessageFileSelected = document.createElement('p');
+                    errorMessageFileSelected.classList.add('error-message-file-selected')
+                    errorMessageFileSelected.textContent = 'Le fichier doit au format .jpg ou .png et être inférieur à 4 Mo';
+
+                    uploadSection.appendChild(errorMessageFileSelected);
+                }
             });
 
             const textUploadSection = document.createElement('p');
@@ -339,13 +362,15 @@ function editMode() {
             projectCategory.textContent = 'Catégorie';
             projectCategory.htmlFor = 'projectCategoryArea'
             const projectCategoryArea = document.createElement('select');
+            const option = document.createElement('option');
+            option.textContent = '';
             projectCategoryArea.name = 'category-new-project';
             projectCategoryArea.id = 'projectCategoryArea';
 
             // Appel de la fonction pour récupérer les catégories (ne fonctionne pas)
-            /*getCategories()
+            fetch(categoriesUrl)
+                .then(response => response.json())
                 .then(categories => {
-                    console.log("Catégories récupérées :", categories);
                     categories.forEach(category => {
                         const option = document.createElement('option');
                         option.value = category.id;
@@ -355,7 +380,7 @@ function editMode() {
                 })
                 .catch(error => {
                     console.error("Erreur lors de la récupération des catégories :", error);
-                });*/
+                });
 
             const validateButton = document.createElement('button');
             validateButton.classList.add('modal-upload-section-button-validate');
@@ -376,6 +401,7 @@ function editMode() {
             formUploadSection.appendChild(projectTitleArea);
             formUploadSection.appendChild(projectCategory);
             formUploadSection.appendChild(projectCategoryArea);
+            projectCategoryArea.appendChild(option)
             uploadSectionWindow.appendChild(validateButton);
 
             closeModal('modal-close-button-2');
