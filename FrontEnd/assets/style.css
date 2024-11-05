@@ -515,17 +515,19 @@ footer nav li {
     object-fit: contain;
 }
 
-.modal-upload-section .error-message-file-selected {
-	position: fixed;
-	top: 620px;
-	color: red;
-}
-
 .modal-upload-section p {
 	font-family: 'Work Sans';
 	font-size: 10px;
 	font-weight: 400;
 	color: #444444;	
+}
+
+.modal-upload-section .error-message-file-selected {
+	position: fixed;
+	top: 620px;
+	font-family: 'Work Sans';
+	font-size: 10px;
+	color: red;
 }
 
 #modal-upload-section-form {
