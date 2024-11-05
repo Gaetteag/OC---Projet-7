@@ -320,29 +320,6 @@ function editMode() {
             addPhotoUploadSection.addEventListener('click', () => {
                 fileInput.click();
             });
-            
-            let fileSelected = document.getElementById('fileSelected');
-
-            fileInput.addEventListener('change', (event) => {
-                fileSelected = event.target.files[0];
-                activateValidateButton();
-                    
-                if ((fileSelected.type === 'image/jpeg' || fileSelected.type === 'image/png') && fileSelected.size <= 4 * 1024 * 1024) {
-                const imgFileSelected = document.createElement('img');
-                imgFileSelected.src = URL.createObjectURL(fileSelected);
-                imgFileSelected.classList.add('img-file-selected')
-
-                const uploadSection = document.getElementById('modal-upload-section');
-                uploadSection.innerHTML = '';
-                uploadSection.appendChild(imgFileSelected);
-                } else {
-                    const errorMessageFileSelected = document.createElement('p');
-                    errorMessageFileSelected.classList.add('error-message-file-selected')
-                    errorMessageFileSelected.textContent = 'Le fichier doit être au format .jpg ou .png et ne pas dépasser 4 Mo';
-
-                    uploadSection.appendChild(errorMessageFileSelected);
-                }
-            });
 
             const textUploadSection = document.createElement('p');
             textUploadSection.classList.add('modal-upload-section-text');
@@ -359,10 +336,6 @@ function editMode() {
             projectTitleArea.name = 'title-new-project';
             projectTitleArea.id = 'projectTitleArea';
 
-            projectTitleArea.addEventListener('input', () => {
-                activateValidateButton();
-            });
-
             const projectCategory = document.createElement('label')
             projectCategory.textContent = 'Catégorie';
             projectCategory.htmlFor = 'projectCategoryArea'
@@ -371,10 +344,6 @@ function editMode() {
             option.textContent = '';
             projectCategoryArea.name = 'category-new-project';
             projectCategoryArea.id = 'projectCategoryArea';
-
-            projectCategoryArea.addEventListener('change', () => {
-                activateValidateButton();
-            });
 
             // Fetch pour récupérer les catégoriess
             fetch(categoriesUrl)
@@ -392,7 +361,49 @@ function editMode() {
             const validateButton = document.createElement('button');
             validateButton.classList.add('modal-upload-section-button-validate');
             validateButton.textContent = 'Valider';
+
+            // Fonction pour envoyer un nouveau projet sur l'API
+            let fileSelected = document.getElementById('fileSelected');
             
+            function sendNewProject() {                          
+                fileInput.addEventListener('change', (event) => {
+                    fileSelected = event.target.files[0];
+                    
+                    if ((fileSelected.type === 'image/jpeg' || fileSelected.type === 'image/png') && fileSelected.size <= 4 * 1024 * 1024) {
+                        const imgFileSelected = document.createElement('img');
+                        imgFileSelected.src = URL.createObjectURL(fileSelected);
+                        imgFileSelected.classList.add('img-file-selected')
+                        
+                        const uploadSection = document.getElementById('modal-upload-section');
+                        uploadSection.innerHTML = '';
+                        uploadSection.appendChild(imgFileSelected);
+
+                        activateValidateButton();
+                    } else {
+                        const errorMessageFileSelected = document.createElement('p');
+                        errorMessageFileSelected.classList.add('error-message-file-selected')
+                        errorMessageFileSelected.textContent = 'Le fichier doit être au format .jpg ou .png et ne pas dépasser 4 Mo';
+                        
+                        uploadSection.appendChild(errorMessageFileSelected);
+                    }
+                });
+                
+                projectTitleArea.addEventListener('input', () => {
+                    activateValidateButton();
+                });
+                
+                projectCategoryArea.addEventListener('change', () => {
+                    activateValidateButton();
+                });
+
+                validateButton.addEventListener('click', () => {
+                    if (validateButton.classList.contains('modal-upload-section-button-validate-form-completed')) {
+                        console.log('clic button');
+                    }
+                });
+            }
+
+            // Fonction pour activer le bouton "Valider" lorsque les 3 conditions sont remplies
             function activateValidateButton() {
                 if (fileSelected && projectTitleArea.value.length > 0 && projectCategoryArea.value !== '') {
                     validateButton.classList.add('modal-upload-section-button-validate-form-completed');
@@ -400,6 +411,9 @@ function editMode() {
                     validateButton.classList.remove('modal-upload-section-button-validate-form-completed');
                 }
             }
+            
+
+            sendNewProject();
 
             modalWindow.appendChild(modalTopIcons);
             modalTopIcons.appendChild(backButton);
