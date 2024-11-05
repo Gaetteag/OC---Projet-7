@@ -359,6 +359,7 @@ function editMode() {
                 .catch(error => console.error("Erreur lors de la récupération des catégories", error));
 
             const validateButton = document.createElement('button');
+            validateButton.type = 'submit';
             validateButton.classList.add('modal-upload-section-button-validate');
             validateButton.textContent = 'Valider';
 
@@ -396,9 +397,28 @@ function editMode() {
                     activateValidateButton();
                 });
 
-                validateButton.addEventListener('click', () => {
+                validateButton.addEventListener('click', (event) => {
+                    event.preventDefault();
                     if (validateButton.classList.contains('modal-upload-section-button-validate-form-completed')) {
-                        console.log('clic button');
+                        // Récupérer les données du formulaire
+                        const formData = new FormData();
+                        formData.append('title', projectTitleArea.value);
+                        formData.append('category', projectCategoryArea.value);
+                        formData.append('image', fileSelected);
+                        
+                        // Envoyer le nouveau projet sur l'API
+                        fetch(worksUrl, {
+                            method: 'POST',
+                            headers: {
+                                'Authorization': `Bearer ${token}`,
+                            },
+                            body: formData
+                        })
+                            .then(response => response.json())
+                            .then(newProject => {
+                                getProjects();
+                            })
+                            .catch(error => console.error("Erreur lors de l'ajout du projet:", error));
                     }
                 });
             }
@@ -412,7 +432,6 @@ function editMode() {
                 }
             }
             
-
             sendNewProject();
 
             modalWindow.appendChild(modalTopIcons);
