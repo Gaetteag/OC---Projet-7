@@ -325,6 +325,7 @@ function editMode() {
 
             fileInput.addEventListener('change', (event) => {
                 fileSelected = event.target.files[0];
+                activateValidateButton();
                     
                 if ((fileSelected.type === 'image/jpeg' || fileSelected.type === 'image/png') && fileSelected.size <= 4 * 1024 * 1024) {
                 const imgFileSelected = document.createElement('img');
@@ -337,7 +338,7 @@ function editMode() {
                 } else {
                     const errorMessageFileSelected = document.createElement('p');
                     errorMessageFileSelected.classList.add('error-message-file-selected')
-                    errorMessageFileSelected.textContent = 'Le fichier doit au format .jpg ou .png et être inférieur à 4 Mo';
+                    errorMessageFileSelected.textContent = 'Le fichier doit être au format .jpg ou .png et ne pas dépasser 4 Mo';
 
                     uploadSection.appendChild(errorMessageFileSelected);
                 }
@@ -358,6 +359,10 @@ function editMode() {
             projectTitleArea.name = 'title-new-project';
             projectTitleArea.id = 'projectTitleArea';
 
+            projectTitleArea.addEventListener('input', () => {
+                activateValidateButton();
+            });
+
             const projectCategory = document.createElement('label')
             projectCategory.textContent = 'Catégorie';
             projectCategory.htmlFor = 'projectCategoryArea'
@@ -367,7 +372,11 @@ function editMode() {
             projectCategoryArea.name = 'category-new-project';
             projectCategoryArea.id = 'projectCategoryArea';
 
-            // Appel de la fonction pour récupérer les catégories (ne fonctionne pas)
+            projectCategoryArea.addEventListener('change', () => {
+                activateValidateButton();
+            });
+
+            // Fetch pour récupérer les catégoriess
             fetch(categoriesUrl)
                 .then(response => response.json())
                 .then(categories => {
@@ -378,13 +387,19 @@ function editMode() {
                         projectCategoryArea.appendChild(option);
                     });
                 })
-                .catch(error => {
-                    console.error("Erreur lors de la récupération des catégories :", error);
-                });
+                .catch(error => console.error("Erreur lors de la récupération des catégories", error));
 
             const validateButton = document.createElement('button');
             validateButton.classList.add('modal-upload-section-button-validate');
             validateButton.textContent = 'Valider';
+            
+            function activateValidateButton() {
+                if (fileSelected && projectTitleArea.value.length > 0 && projectCategoryArea.value !== '') {
+                    validateButton.classList.add('modal-upload-section-button-validate-form-completed');
+                } else {
+                    validateButton.classList.remove('modal-upload-section-button-validate-form-completed');
+                }
+            }
 
             modalWindow.appendChild(modalTopIcons);
             modalTopIcons.appendChild(backButton);
