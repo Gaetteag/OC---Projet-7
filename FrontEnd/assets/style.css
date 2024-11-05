@@ -429,6 +429,7 @@ footer nav li {
 	margin: 50px 102.5px 0 102.5px;
 	padding-bottom: 50px;
 	border-bottom: 1px solid #B3B3B3;
+	overflow-y: auto;
 }
 
 .modal-gallery-image {
