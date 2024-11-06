@@ -363,10 +363,10 @@ footer nav li {
 }
 
 .modal-section {
-	display: none;
 	position: fixed;
 	align-items: center;
 	justify-content: center;
+	margin: 0;
 	top: 0;
 	left: 0;
 	width: 100%;
@@ -525,7 +525,7 @@ footer nav li {
 
 .modal-upload-section .error-message-file-selected {
 	position: fixed;
-	top: 620px;
+	top: 630px;
 	font-family: 'Work Sans';
 	font-size: 10px;
 	color: red;
