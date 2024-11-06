@@ -393,7 +393,7 @@ footer nav li {
 	justify-content: center;
 }
 
-#modal-close-button {
+#modal-close-button-gallery {
 	display: flex;
 	font-size: 24px;
 	justify-content: end;
@@ -475,7 +475,7 @@ footer nav li {
 	cursor: pointer;
 }
 
-#modal-close-button-2 {
+#modal-close-button-add-project {
 	font-size: 24px;
 	cursor: pointer;
 }
