@@ -320,7 +320,8 @@ function editMode() {
             fileInput.id = 'fileSelected';
             fileInput.style.display = 'none';
 
-            addPhotoUploadSection.addEventListener('click', () => {
+            addPhotoUploadSection.addEventListener('click', (event) => {
+                event.preventDefault();
                 fileInput.click();
             });
 
@@ -368,6 +369,7 @@ function editMode() {
             
             function addInformationsProject() {                          
                 fileInput.addEventListener('change', (event) => {
+                    event.preventDefault();
                     fileSelected = event.target.files[0];
                     
                     if ((fileSelected.type === 'image/jpeg' || fileSelected.type === 'image/png') && fileSelected.size <= 4 * 1024 * 1024) {
@@ -389,11 +391,13 @@ function editMode() {
                     }
                 });
                 
-                projectTitleArea.addEventListener('input', () => {
+                projectTitleArea.addEventListener('input', (event) => {
+                    event.preventDefault();
                     activateValidateButton();
                 });
                 
-                projectCategoryArea.addEventListener('change', () => {
+                projectCategoryArea.addEventListener('change', (event) => {
+                    event.preventDefault();
                     activateValidateButton();
                 });
             }
@@ -407,6 +411,7 @@ function editMode() {
                 }
             }
 
+            // Fonction pour envoyer un nouveau projet vers l'API
             function sendNewProject() {   
                 addInformationsProject();
                 validateButton.addEventListener('click', (event) => {
@@ -426,18 +431,14 @@ function editMode() {
                             },
                             body: formData
                         })
-                            .then(response => response.json())
-                            .then(() => {
-                                //addInformationsProject();
-                                
-                                const formData = document.getElementById('modal-upload-section-form');
-                                formData.reset();
-
-                                //activateValidateButton();
-                                
-                                getProjects();
-                            })
-                            .catch(error => console.error("Erreur lors de l'ajout du projet:", error));
+                        .then(response => response.json())
+                        .then(() => {
+                            formUploadSection.reset();
+                            addProjectModal();
+                            activateValidateButton();
+                            getProjects();
+                        })
+                        .catch(error => console.error("Erreur lors de l'ajout du projet:", error));
                     }
                 });
             }
@@ -460,7 +461,7 @@ function editMode() {
             formUploadSection.appendChild(projectCategory);
             formUploadSection.appendChild(projectCategoryArea);
             projectCategoryArea.appendChild(option)
-            uploadSectionWindow.appendChild(validateButton);
+            formUploadSection.appendChild(validateButton);
 
             closeModal('modal-close-button-add-project');
         }
