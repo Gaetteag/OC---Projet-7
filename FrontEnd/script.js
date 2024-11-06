@@ -177,7 +177,7 @@ function editMode() {
 
             const closeButton = document.createElement('i');
             closeButton.classList.add('fa-solid', 'fa-xmark');
-            closeButton.id = 'modal-close-button';
+            closeButton.id = 'modal-close-button-gallery';
         
             const modalTitle = document.createElement('h3');
             modalTitle.classList.add('modal-title');
@@ -205,7 +205,7 @@ function editMode() {
                 addProjectModal();
             })
 
-            closeModal('modal-close-button');
+            closeModal('modal-close-button-gallery');
         }
         
         // Fonction pour ouvrir la modale
@@ -290,7 +290,7 @@ function editMode() {
 
             const secondCloseButton = document.createElement('i');
             secondCloseButton.classList.add('fa-solid', 'fa-xmark');
-            secondCloseButton.id = 'modal-close-button-2';
+            secondCloseButton.id = 'modal-close-button-add-project';
 
             const secondModalTitle = document.createElement('h3');
             secondModalTitle.classList.add('modal-title');
@@ -298,6 +298,9 @@ function editMode() {
 
             const uploadSectionWindow = document.createElement('div');
             uploadSectionWindow.classList.add('modal-upload-section-window');
+
+            const formUploadSection = document.createElement('form');
+            formUploadSection.id = 'modal-upload-section-form';
 
             const uploadSection = document.createElement('div');
             uploadSection.classList.add('modal-upload-section');
@@ -325,9 +328,6 @@ function editMode() {
             textUploadSection.classList.add('modal-upload-section-text');
             textUploadSection.textContent = 'jpg, png : 4mo max';
                 
-            const formUploadSection = document.createElement('form');
-            formUploadSection.id = 'modal-upload-section-form';
-
             const projectTitle = document.createElement('label')
             projectTitle.textContent = 'Titre';
             projectTitle.htmlFor = 'projectTitleArea'
@@ -366,7 +366,7 @@ function editMode() {
             // Fonction pour envoyer un nouveau projet sur l'API
             let fileSelected = document.getElementById('fileSelected');
             
-            function sendNewProject() {                          
+            function addInformationsProject() {                          
                 fileInput.addEventListener('change', (event) => {
                     fileSelected = event.target.files[0];
                     
@@ -396,7 +396,19 @@ function editMode() {
                 projectCategoryArea.addEventListener('change', () => {
                     activateValidateButton();
                 });
+            }
 
+            // Fonction pour activer le bouton "Valider" lorsque les 3 conditions sont remplies
+            function activateValidateButton() {
+                if (fileSelected && projectTitleArea.value.length > 0 && projectCategoryArea.value !== '') {
+                    validateButton.classList.add('modal-upload-section-button-validate-form-completed');
+                } else {
+                    validateButton.classList.remove('modal-upload-section-button-validate-form-completed');
+                }
+            }
+
+            function sendNewProject() {   
+                addInformationsProject();
                 validateButton.addEventListener('click', (event) => {
                     event.preventDefault();
                     if (validateButton.classList.contains('modal-upload-section-button-validate-form-completed')) {
@@ -415,7 +427,14 @@ function editMode() {
                             body: formData
                         })
                             .then(response => response.json())
-                            .then(newProject => {
+                            .then(() => {
+                                //addInformationsProject();
+                                
+                                const formData = document.getElementById('modal-upload-section-form');
+                                formData.reset();
+
+                                //activateValidateButton();
+                                
                                 getProjects();
                             })
                             .catch(error => console.error("Erreur lors de l'ajout du projet:", error));
@@ -423,15 +442,6 @@ function editMode() {
                 });
             }
 
-            // Fonction pour activer le bouton "Valider" lorsque les 3 conditions sont remplies
-            function activateValidateButton() {
-                if (fileSelected && projectTitleArea.value.length > 0 && projectCategoryArea.value !== '') {
-                    validateButton.classList.add('modal-upload-section-button-validate-form-completed');
-                } else {
-                    validateButton.classList.remove('modal-upload-section-button-validate-form-completed');
-                }
-            }
-            
             sendNewProject();
 
             modalWindow.appendChild(modalTopIcons);
@@ -439,12 +449,12 @@ function editMode() {
             modalTopIcons.appendChild(secondCloseButton);
             modalWindow.appendChild(secondModalTitle);
             modalWindow.appendChild(uploadSectionWindow);
-            uploadSectionWindow.appendChild(uploadSection)
+            uploadSectionWindow.appendChild(formUploadSection);
+            formUploadSection.appendChild(uploadSection)
             uploadSection.appendChild(imageUploadSection);
             uploadSection.appendChild(addPhotoUploadSection);
             uploadSection.appendChild(fileInput);
             uploadSection.appendChild(textUploadSection);
-            uploadSectionWindow.appendChild(formUploadSection);
             formUploadSection.appendChild(projectTitle);
             formUploadSection.appendChild(projectTitleArea);
             formUploadSection.appendChild(projectCategory);
@@ -452,7 +462,7 @@ function editMode() {
             projectCategoryArea.appendChild(option)
             uploadSectionWindow.appendChild(validateButton);
 
-            closeModal('modal-close-button-2');
+            closeModal('modal-close-button-add-project');
         }
 
         // Fonction pour fermer la modale et retirer le conteneur du DOM
