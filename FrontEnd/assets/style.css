@@ -193,6 +193,7 @@ li:hover {
 .gallery img {
 	width: 305px;
 	height: 407px;
+	object-fit:contain;
 }
 .gallery figcaption {
 	font-family: 'Work Sans';
@@ -202,7 +203,7 @@ li:hover {
 	}
 #contact {
 	width: 50%;
-margin: auto;
+	margin: auto;
 }
 #contact > * {
 	text-align: center;
