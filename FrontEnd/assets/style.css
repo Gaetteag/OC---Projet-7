@@ -425,7 +425,7 @@ footer nav li {
 	display: flex;
 	height: 400px;
 	flex-wrap: wrap;
-	justify-content: flex-start;
+	align-content: flex-start;
 	gap: 10px;
 	row-gap: 30px;
 	margin: 50px 102.5px 0 102.5px;
@@ -485,12 +485,22 @@ footer nav li {
 .modal-upload-section {
 	display: flex;
 	flex-direction: column;
-	align-items: center;
-	justify-content: center;
+	justify-content: space-between;
 	background-color: #e8f1f6;
 	width: 420px;
 	height: 169px;
 	border-radius: 3px;
+}
+
+.upload-section-image-division {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	padding-top: 15px;
+}
+
+.upload-section-error-message-division {
+	align-self: center;
 }
 
 .modal-upload-section i {
@@ -526,10 +536,9 @@ footer nav li {
 }
 
 .modal-upload-section .error-message-file-selected {
-	position: fixed;
-	top: 580px;
 	font-family: 'Work Sans';
 	font-size: 10px;
+	padding-bottom: 5px;
 	color: red;
 }
 
