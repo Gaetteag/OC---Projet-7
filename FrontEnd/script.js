@@ -364,7 +364,7 @@ function editMode() {
             validateButton.classList.add('modal-upload-section-button-validate');
             validateButton.textContent = 'Valider';
 
-            // Fonction pour envoyer un nouveau projet sur l'API
+            // Fonction pour les changements dans les informations du projet
             let fileSelected = document.getElementById('fileSelected');
             
             function addInformationsProject() {                          
@@ -433,7 +433,7 @@ function editMode() {
                         })
                         .then(response => response.json())
                         .then(() => {
-                            formUploadSection.reset();
+                            //formUploadSection.reset();
                             addProjectModal();
                             activateValidateButton();
                             getProjects();
