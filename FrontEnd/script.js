@@ -306,6 +306,10 @@ function editMode() {
             uploadSection.classList.add('modal-upload-section');
             uploadSection.id = 'modal-upload-section';
 
+            //ajout
+            const uploadSectionFirstDivision = document.createElement('div');
+            uploadSectionFirstDivision.classList.add('upload-section-image-division')
+
             const imageUploadSection = document.createElement('i');
             imageUploadSection.classList.add('fa-regular', 'fa-image');
             imageUploadSection.id = 'modal-upload-section-image';
@@ -328,6 +332,10 @@ function editMode() {
             const textUploadSection = document.createElement('p');
             textUploadSection.classList.add('modal-upload-section-text');
             textUploadSection.textContent = 'jpg, png : 4mo max';
+
+            //ajout
+            const errorMessageDivision = document.createElement('div');
+            errorMessageDivision.classList.add('upload-section-error-message-division')
                 
             const projectTitle = document.createElement('label')
             projectTitle.textContent = 'Titre';
@@ -383,11 +391,10 @@ function editMode() {
 
                         activateValidateButton();
                     } else {
-                        const errorMessageFileSelected = document.createElement('p');
-                        errorMessageFileSelected.classList.add('error-message-file-selected')
-                        errorMessageFileSelected.textContent = 'Le fichier doit être au format .jpg ou .png et ne pas dépasser 4 Mo';
+                        errorMessageDivision.classList.add('error-message-file-selected')
+                        errorMessageDivision.textContent = 'Le fichier doit être au format .jpg ou .png et ne pas dépasser 4 Mo';
                         
-                        uploadSection.appendChild(errorMessageFileSelected);
+                        uploadSection.appendChild(errorMessageDivision);
                     }
                 });
                 
@@ -433,7 +440,6 @@ function editMode() {
                         })
                         .then(response => response.json())
                         .then(() => {
-                            //formUploadSection.reset();
                             addProjectModal();
                             activateValidateButton();
                             getProjects();
@@ -451,11 +457,13 @@ function editMode() {
             modalWindow.appendChild(secondModalTitle);
             modalWindow.appendChild(uploadSectionWindow);
             uploadSectionWindow.appendChild(formUploadSection);
-            formUploadSection.appendChild(uploadSection)
-            uploadSection.appendChild(imageUploadSection);
-            uploadSection.appendChild(addPhotoUploadSection);
-            uploadSection.appendChild(fileInput);
-            uploadSection.appendChild(textUploadSection);
+            formUploadSection.appendChild(uploadSection);
+            uploadSection.appendChild(uploadSectionFirstDivision)
+            uploadSectionFirstDivision.appendChild(imageUploadSection);
+            uploadSectionFirstDivision.appendChild(addPhotoUploadSection);
+            uploadSectionFirstDivision.appendChild(fileInput);
+            uploadSectionFirstDivision.appendChild(textUploadSection);
+            uploadSection.appendChild(errorMessageDivision)
             formUploadSection.appendChild(projectTitle);
             formUploadSection.appendChild(projectTitleArea);
             formUploadSection.appendChild(projectCategory);
