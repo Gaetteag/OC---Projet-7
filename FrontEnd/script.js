@@ -306,7 +306,6 @@ function editMode() {
             uploadSection.classList.add('modal-upload-section');
             uploadSection.id = 'modal-upload-section';
 
-            //ajout
             const uploadSectionFirstDivision = document.createElement('div');
             uploadSectionFirstDivision.classList.add('upload-section-image-division')
 
@@ -333,7 +332,6 @@ function editMode() {
             textUploadSection.classList.add('modal-upload-section-text');
             textUploadSection.textContent = 'jpg, png : 4mo max';
 
-            //ajout
             const errorMessageDivision = document.createElement('div');
             errorMessageDivision.classList.add('upload-section-error-message-division')
                 
