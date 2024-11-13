@@ -35,7 +35,7 @@ function connectionError(errorMessage) {
         connectionErrorMessage = document.createElement("p");
         connectionErrorMessage.id = "connection-error-message";
 
-        // Insère l'élément entre le champ de mot de passe et le bouton de soumission
+        // Insère l'élément au dessus du formulaire
         loginForm.prepend(connectionErrorMessage);
     }
     // Crée le texte du message d'erreur
