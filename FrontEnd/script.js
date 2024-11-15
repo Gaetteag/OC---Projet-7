@@ -92,6 +92,7 @@ getCategories();
 
 // Variables
 const token = localStorage.getItem('token');
+const body = document.querySelector('body'); 
 const main = document.querySelector('main'); 
 const header = document.querySelector('header');
 const modalSection = document.getElementById('modal-section');
@@ -103,6 +104,7 @@ function editMode() {
         const editModeBanner = document.createElement('div');
         editModeBanner.classList.add('edit-mode-banner');
         editModeBanner.id = 'edit-mode-banner';
+        body.insertBefore(editModeBanner, header);
         
         const iconBanner = document.createElement('i');
         iconBanner.classList.add('fa-regular', 'fa-pen-to-square');
@@ -111,8 +113,6 @@ function editMode() {
         const textBanner = document.createElement('span');
         textBanner.textContent = 'Mode édition';
         editModeBanner.appendChild(textBanner);
-        
-        header.insertBefore(editModeBanner, header.firstChild);
         
         // Transformer le login en logout
         const authLink = document.getElementById('auth-link');
@@ -156,7 +156,7 @@ function editMode() {
         const editModeGallery = document.getElementById('gallery');
         editModeGallery.classList.add('edit-mode-gallery')
 
-        // Fonction pour créer la balise aside qui contient la modale
+        // Fonction pour créer la section qui contient la modale
         function createModalSection() {
             const createModalSection = document.createElement('section');
             createModalSection.classList.add('modal-section');
@@ -251,7 +251,7 @@ function editMode() {
             })
         }
     
-        // Fonction pour supprimer une image d'un projet dans la modale
+        // Fonction pour supprimer un projet dans la modale
         function deleteModalProject(id, imageModalProject) {
             fetch(`http://localhost:5678/api/works/${id}`, {
                 method: 'DELETE',
