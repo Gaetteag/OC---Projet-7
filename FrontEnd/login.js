@@ -6,8 +6,15 @@ connectionButton.addEventListener('click', (event) => {
     event.preventDefault();
 
     const email = document.getElementById("email").value;
+    const emailRegex = /[a-z0-9._-]+@[a-z0-9._-]+\.[a-z0-9._-]/;
     const password = document.getElementById("password").value;
-    const data = {email: email, password: password};
+
+    if (!email || !password) {
+        connectionError("Veuillez renseigner un e-mail et un mot de passe");
+    } else if (!emailRegex.test(email)) {
+        connectionError("Veuillez entrer une adresse e-mail valide");
+    } else {
+        const data = { email: email, password: password };
 
     fetch("http://localhost:5678/api/users/login", {
         method: "POST",
@@ -27,6 +34,7 @@ connectionButton.addEventListener('click', (event) => {
                 connectionError("Erreur dans l’identifiant ou le mot de passe");
             }
         })
+    }
 });
 
 function connectionError(errorMessage) {
