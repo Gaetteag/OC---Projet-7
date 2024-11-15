@@ -51,15 +51,18 @@ table {
 	--filter-color : #1D6154;
 }
 body {
-	max-width: 1140px;
-	margin:auto;
 	font-family: 'Work Sans' ;
 	font-size: 14px;
 }
 header {
 	display: flex;
-	justify-content: space-between;
-	margin: 50px 0;
+	justify-content: space-between;	
+	max-width: 1140px;
+	margin:50px auto;
+}
+main {
+	max-width: 1140px;
+	margin:auto;
 }
 section {
 	margin: 50px 0
@@ -127,7 +130,7 @@ li:hover {
 #introduction {
 	display: flex;
 	align-items: center;
-	margin: 10em 0 10em 6em;
+	margin: 8em 0 8em 6em;
 }
 #introduction figure {
 	flex: 1;
@@ -290,7 +293,8 @@ li:hover {
 	color: #FF0000;
 }
 footer {
-	margin: 0;
+	max-width: 1140px;
+	margin:auto;
 }
 footer nav ul {
 	display: flex;
@@ -307,14 +311,12 @@ footer nav li {
 /* Style en mode édition */
 
 .edit-mode-banner {
-	position: absolute;
     background-color: black;
     color: white;
     text-align: center;
 	padding: 20px;
-    top: 0;
-    left: 0;
-    width: 100%;
+    max-width: 1440px;
+	margin: auto;
 }
 
 .edit-mode-banner i {
@@ -361,7 +363,7 @@ footer nav li {
 }
 
 .spaceBannerEditMode {
-	margin-top: 100px;
+	margin-top: 40px;
 }
 
 .modal-section {
