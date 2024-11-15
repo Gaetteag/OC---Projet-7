@@ -315,8 +315,7 @@ footer nav li {
     color: white;
     text-align: center;
 	padding: 20px;
-    max-width: 1440px;
-	margin: auto;
+    width: 100%;
 }
 
 .edit-mode-banner i {
